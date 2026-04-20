@@ -18,10 +18,12 @@ Aplicação desktop eficiente para Windows, integrando frontend moderno (React/N
    > Certifique-se de usar apenas um gerenciador de pacotes por vez (npm, yarn ou pnpm) para evitar conflitos de dependências.
 
 2. **Instale as dependências do backend Python:**
-   ```bash
-   cd ../backend
-   pip install -r requirements.txt
-   ```
+    ```bash
+    # From the `petrolumen` directory (project root for the backend)
+    python -m venv .venv
+    .venv\Scripts\Activate.ps1
+    pip install -r requirements.txt
+    ```
 
 3. **Inicie o backend Python localmente:**
    ```bash
@@ -30,19 +32,19 @@ Aplicação desktop eficiente para Windows, integrando frontend moderno (React/N
    ```
 
 4. **Build do frontend:**
-   ```bash
-   cd ../app
-   npm run build
-   ```
+    ```bash
+    cd app
+    npm run build
+    ```
 
 5. **Empacote como app Windows com Tauri:**
-   ```bash
-   cd ../src-tauri
-   # Instale o Tauri CLI se necessário
-   cargo install tauri-cli
-   # Gere o executável Windows
-   tauri build
-   ```
+    ```bash
+    cd src-tauri
+    # Instale o Tauri CLI se necessário
+    cargo install tauri-cli
+    # Gere o executável Windows
+    tauri build
+    ```
 
 O instalador `.exe` será gerado em `src-tauri/target/release/bundle`.
 
@@ -69,19 +71,19 @@ npm install
 
 ### 3. Instale as dependências do backend
 ```powershell
-cd ../backend
+# From the `petrolumen` directory (project root for the backend)
 pip install -r requirements.txt
 ```
 
 ### 4. Build do frontend
 ```powershell
-cd ../app
+cd app
 npm run build
 ```
 
 ### 5. Build do Tauri (gera o .exe)
 ```powershell
-cd ../src-tauri
+cd src-tauri
 tauri build
 ```
 

@@ -6,3 +6,10 @@ build/
 .vscode/
 .next/
 .DS_Store
+
+# Local python virtualenv
+.venv/
+venv/
+
+# Local env examples
+.env.example
