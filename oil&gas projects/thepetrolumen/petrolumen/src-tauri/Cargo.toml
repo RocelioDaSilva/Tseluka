@@ -2,9 +2,9 @@
 name = "petrolumen-desktop"
 version = "0.1.0"
 description = "Aplicativo desktop PetroLúmen"
-authors = ["you"]
-license = ""
-repository = ""
+authors = ["Tseluca <you@example.com>"]
+license = "MIT"
+repository = "https://github.com/your-org/thepetrolumen"
 default-run = "petrolumen-desktop"
 edition = "2021"
 rust-version = "1.59"

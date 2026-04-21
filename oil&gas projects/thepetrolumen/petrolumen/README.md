@@ -1,3 +1,28 @@
+## Packaging the backend into the Tauri bundle (Linux/macOS)
+
+1. Build the frontend Next app:
+
+```bash
+cd petrolumen
+npm run build
+```
+
+2. Package the Python backend (creates `backend` and copies it into `src-tauri/bundle/resources`):
+
+```bash
+cd petrolumen
+source .venv/bin/activate
+npm run package:backend
+```
+
+3. Build the Tauri app (this will include the bundled backend):
+
+```bash
+cd petrolumen
+npm run desktop:build
+```
+
+The helper script `scripts/package-backend.sh` uses PyInstaller to create a single-file executable and copies it into the Tauri resources folder so the final installer contains it.
 
 # Gaia Genesis - Engenharia de Reservatórios
 
@@ -27,8 +52,8 @@ Aplicação desktop eficiente para Windows, integrando frontend moderno (React/N
 
 3. **Inicie o backend Python localmente:**
    ```bash
-   # Exemplo usando FastAPI
-   uvicorn main:app --reload
+    # Exemplo usando FastAPI
+    uvicorn backend.main:app --reload
    ```
 
 4. **Build do frontend:**
@@ -92,6 +117,32 @@ O instalador `.exe` estará em:
 ```
 src-tauri/target/release/bundle/windows/
 ```
+
+## Packaging the backend into the Tauri bundle (Windows)
+
+1. Build the frontend Next app:
+
+```powershell
+cd petrolumen
+npm run build
+```
+
+2. Package the Python backend (creates `backend.exe` and copies it into `src-tauri/bundle/resources`):
+
+```powershell
+cd petrolumen
+.venv\Scripts\Activate.ps1
+npm run package:backend
+```
+
+3. Build the Tauri app (this will include the bundled backend):
+
+```powershell
+cd petrolumen
+npm run desktop:build
+```
+
+The helper script `scripts/package-backend.ps1` uses PyInstaller to create a single-file executable and copies it into the Tauri resources folder so the final installer contains it.
 
 ### 7. Distribua
 Envie o `.exe` para seus usuários ou publique em um site.

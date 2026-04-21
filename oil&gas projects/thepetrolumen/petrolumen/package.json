@@ -10,7 +10,9 @@
     "tauri": "tauri",
     "desktop": "tauri dev",
     "desktop:build": "tauri build",
-    "desktop:preview": "tauri build && tauri dev"
+    "desktop:preview": "tauri build && tauri dev",
+    "package:backend": "powershell -ExecutionPolicy Bypass -File ./scripts/package-backend.ps1 || bash ./scripts/package-backend.sh",
+    "package:app": "npm run build && npm run package:backend && npm run desktop:build"
   },
   
   "dependencies": {

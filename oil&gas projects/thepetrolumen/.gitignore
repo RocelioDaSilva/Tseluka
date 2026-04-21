@@ -34,6 +34,9 @@ __pycache__/
 *.so
 .Python
 env/
+*.venv
+.venv
+petrolumen/.venv
 build/
 develop-eggs/
 dist/
