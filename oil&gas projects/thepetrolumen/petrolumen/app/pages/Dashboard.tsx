@@ -1,4 +1,10 @@
 import React from 'react';
+import StatusOverview from '../components/StatusOverview';
+
 export default function Dashboard() {
-  return <div>Dashboard de exemplo</div>;
+  return (
+    <main>
+      <StatusOverview />
+    </main>
+  );
 }

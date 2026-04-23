@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
-from petrolumen.backend.main import app
+# Local import adjusted for running tests from repository root
+from backend.main import app
 
 
 client = TestClient(app)
