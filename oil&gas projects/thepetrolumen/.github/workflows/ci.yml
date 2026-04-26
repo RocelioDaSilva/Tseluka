@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  frontend:
+    name: Frontend (Node)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install JS dependencies (petrolumen)
+        run: |
+          cd petrolumen
+          npm ci --omit=optional
+      - name: Run lint (petrolumen)
+        run: |
+          cd petrolumen
+          npm run lint
+      - name: Build Next app (petrolumen)
+        run: |
+          cd petrolumen
+          npm run build
+      - name: Audit NPM dependencies (petrolumen)
+        run: |
+          cd petrolumen
+          npm audit --json > npm-audit.json || true
+      - name: Upload npm audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit
+          path: petrolumen/npm-audit.json
+
+  python:
+    name: Backend (Python)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.10, 3.11]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install minimal Python deps for tests
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install fastapi requests pytest
+      - name: Run pytest
+        run: pytest -q petrolumen/tests
+      - name: Run pip-audit against requirements file (report only)
+        run: |
+          python -m pip install pip-audit
+          python -m pip-audit -r petrolumen/requirements.txt -f json -o petrolumen/pip-audit.json || true
+      - name: Upload pip audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit
+          path: petrolumen/pip-audit.json
