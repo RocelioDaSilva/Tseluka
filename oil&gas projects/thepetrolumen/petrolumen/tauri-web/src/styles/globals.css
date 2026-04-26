@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+/* simple fallback styles */
+.text-muted-foreground { color: #6b7280; }

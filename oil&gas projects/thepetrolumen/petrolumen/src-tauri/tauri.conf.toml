@@ -1,18 +1,14 @@
-
-
-
-
+[package]
+productName = "Petrolumen"
+version = "0.1.0"
 
 [build]
-beforeDevCommand = "npm --prefix .. run dev"
-beforeBuildCommand = "npm --prefix .. run build"
-distDir = "../app/.next"
-devPath = "http://localhost:3000"
+beforeDevCommand = "npm --prefix ../tauri-web run dev"
+beforeBuildCommand = "npm --prefix ../tauri-web run build"
+distDir = "../tauri-web/dist"
+devPath = "http://localhost:5173"
 
 [tauri]
-	[tauri.bundle]
-	resources = ["bundle/resources/backend.exe"]
-
-
-
-
+  [tauri.bundle]
+  identifier = "com.tseluca.petrolumen"
+  resources = ["bundle/resources/backend.exe"]

@@ -438,3 +438,21 @@ A documentação completa está disponível em [docs/](docs/).
 ## Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes. 
+
+## Quick setup & CI notes
+
+- Prerequisites: `Node.js 18+`, `Python 3.10-3.11`, `Rust` (for Tauri).
+- Prefer paths without special characters like `&` on Windows to avoid shell parsing issues.
+- Python quick start (from repo root):
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r petrolumen/requirements.txt
+pytest -q petrolumen/tests
+```
+
+- CI: a GitHub Actions workflow was added at `.github/workflows/ci.yml` to run frontend lint/build and backend tests; Dependabot is configured in `.github/dependabot.yml`.
+- An `.env.example` file was added at `petrolumen/.env.example` — copy to `.env` and fill secrets (do not commit `.env`).
+
+- Note: some optional Python packages in `requirements-dev.txt` (e.g., `petsc4py`, `segyio`, `gstools`) require system libraries or compilers; document and mark them optional for users building locally or CI.

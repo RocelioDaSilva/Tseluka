@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Loader2, CheckCircle, XCircle } from "lucide-react"
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@/lib/tauri-api'
 
 interface ModuleStatus {
   name: string
@@ -24,7 +23,7 @@ export default function Dashboard() {
       try {
         const version = await invoke('get_version')
         setTauriVersion(version as string)
-      } catch (e) {
+      } catch {
         console.log('Not running in Tauri')
       }
     }

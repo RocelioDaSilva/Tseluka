@@ -1,14 +1,47 @@
-import { invoke } from '@tauri-apps/api/tauri';
-
 interface FileResponse {
   success: boolean;
   message: string;
 }
 
+let _invoke: ((cmd: string, args?: any) => Promise<any>) | null = null
+
+async function getInvoke() {
+  if (!_invoke) {
+    // If running on the server (SSR) the Tauri APIs are not available.
+    if (typeof window === 'undefined') {
+      _invoke = async () => {
+        throw new Error('Tauri invoke is not available in the server/SSR environment')
+      }
+      return _invoke
+    }
+
+    try {
+      const mod = await import('@tauri-apps/api/core')
+      _invoke = mod.invoke
+    } catch (e) {
+      // Dynamic import may fail in plain web builds; provide a safe stub.
+      // Consumers should handle errors when Tauri is not present.
+      // eslint-disable-next-line no-console
+      console.warn('Tauri APIs not available; falling back to stub invoke', e)
+      _invoke = async () => {
+        throw new Error('Tauri invoke is not available in this environment')
+      }
+    }
+  }
+  return _invoke
+}
+
+export async function invoke(cmd: string, args?: any): Promise<any> {
+  const inv = await getInvoke()
+  return inv(cmd, args)
+}
+
 export const saveFile = async (path: string, contents: string): Promise<FileResponse> => {
-  return await invoke('save_file', { path, contents });
-};
+  const inv = await getInvoke()
+  return await inv('save_file', { path, contents })
+}
 
 export const readFile = async (path: string): Promise<string> => {
-  return await invoke('read_file', { path });
-};
+  const inv = await getInvoke()
+  return await inv('read_file', { path })
+}

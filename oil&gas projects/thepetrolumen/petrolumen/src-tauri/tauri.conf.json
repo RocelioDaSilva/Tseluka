@@ -1,0 +1,18 @@
+{
+  "package": {
+    "productName": "Petrolumen",
+    "version": "0.1.0"
+  },
+  "build": {
+    "beforeDevCommand": "npm --prefix ../tauri-web run dev",
+    "beforeBuildCommand": "npm --prefix ../tauri-web run build",
+    "distDir": "../tauri-web/dist",
+    "devPath": "http://localhost:5173"
+  },
+  "tauri": {
+    "bundle": {
+      "identifier": "com.tseluca.petrolumen",
+      "resources": ["bundle/resources/backend.exe"]
+    }
+  }
+}
