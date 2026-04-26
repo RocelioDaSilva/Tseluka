@@ -16,7 +16,12 @@ async function getInvoke() {
     }
 
     try {
-      const mod = await import('@tauri-apps/api/core')
+      // Use eval to avoid bundlers statically resolving the import during SSR builds.
+      // This keeps the import runtime-only and prevents Next from attempting to
+      // include the Tauri API on the server.
+      // eslint-disable-next-line no-eval
+      // @ts-ignore
+      const mod = await eval("import('@tauri-apps/api/core')")
       _invoke = mod.invoke
     } catch (e) {
       // Dynamic import may fail in plain web builds; provide a safe stub.
